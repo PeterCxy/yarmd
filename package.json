@@ -1,7 +1,7 @@
 {
   "name": "yarmd",
   "version": "1.0.0",
-  "description": "Yet Another Recursive Multi-thread Downloader (Nginx autoindex required)",
+  "description": "Yet Another Recursive Multi-thread Downloader (A wrapper script around aria2, Nginx autoindex required)",
   "main": "lib/main.js",
   "bin": {
     "yarmd": "./bin/yarmd"
