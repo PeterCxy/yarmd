@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Yet Another Recursive Multi-thread Downloader (Nginx autoindex required)",
   "main": "lib/main.js",
+  "bin": {
+    "yarmd": "./bin/yarmd"
+  },
   "scripts": {
     "build": "node_modules/.bin/babel src --out-dir lib",
     "start": "node_modules/.bin/babel src --out-dir lib && node ./lib/main.js",

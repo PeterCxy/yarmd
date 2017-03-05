@@ -8,7 +8,7 @@ import { logger } from "./log"
 import { recursiveDownload } from "./download"
 
 let argv = optimist
-  .usage('Usage: $0 [-h] [-n count] [-d directory] URL\n\nYet Another Recursive Multi-thread Downloader. This program downloads recursively from an Nginx server with autoindex enabled.\nIf you want to resume a previous download, just make sure the parameters remain the same.\nPlease note that this program ONLY supports servers with NGINX autoindex!')
+  .usage('Usage: $0 [-h] [-n count] [-d directory] URL\n\nYet Another Recursive Multi-thread Downloader. This program downloads recursively from an Nginx server with autoindex enabled.\nIf you want to resume a previous download, just make sure the parameters remain the same.\nPlease note that this program ONLY supports servers with NGINX autoindex, and it requires Aria2 to work!')
   .alias('n', 'threads')
   .alias('d', 'directory')
   .alias('h', 'help')
