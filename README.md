@@ -25,7 +25,7 @@ Please note that this program ONLY supports servers with NGINX autoindex, and it
 
 Options:
   -n, --threads    The number of threads while downloading a file.                                                                        [default: 3]
-  -d, --directory  Directory to download into. YARMD will create a new directory in that directory named with the directory to download.  [default: "/home/peter/workspace/yarmd"]
+  -d, --directory  Directory to download into. YARMD will create a new directory in that directory named with the directory to download.  [default: "$PWD"]
   -h, --help       Print help information                                                                                                 [default: false]
 ```
 
