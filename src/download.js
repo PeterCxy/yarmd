@@ -5,6 +5,7 @@ import { parse as parseURL } from "url"
 import { logger } from "./log"
 import { parseIndex } from "./parser"
 import { execSync } from "child_process"
+import { default as escape } from "shell-escape"
 
 export function recursiveDownload(dir, url, threads, callback) {
     logger.info(`Parsing index: ${hrefWithoutAuth(url)}`)
@@ -39,7 +40,7 @@ function _recursiveDownload(pathName, index, baseURL, threads, callback) {
             let fileName = path.join(pathName, '/' + f)
             let aria2File = fileName + '.aria2'
             if (!fs.existsSync(fileName) || (fs.existsSync(fileName) && fs.existsSync(aria2File))) {
-                execSync(`aria2c -s ${threads} -d '${pathName}' '${fileURL}'`, {stdio:[0,1,2]})
+                execSync(escape(['aria2c', '-s', threads, '-d', pathName, fileURL]), {stdio:[0,1,2]})
             }
         }
     })

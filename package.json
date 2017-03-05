@@ -35,6 +35,7 @@
     "jsdom": "^9.11.0",
     "optimist": "^0.6.1",
     "request": "^2.80.0",
+    "shell-escape": "^0.2.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
