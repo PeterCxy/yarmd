@@ -6,7 +6,7 @@ import { logger } from "./log"
 import { parseIndex } from "./parser"
 import { execSync } from "child_process"
 
-export function recursiveDownload(dir, url, threads) {
+export function recursiveDownload(dir, url, threads, callback) {
     logger.info(`Parsing index: ${hrefWithoutAuth(url)}`)
     parseIndex(url.href, (err, index) => {
         if (err != null) {
@@ -21,12 +21,12 @@ export function recursiveDownload(dir, url, threads) {
             if (!exists) {
                 fs.mkdir(pathName)
             }
-            _recursiveDownload(pathName, index, url, threads)
+            _recursiveDownload(pathName, index, url, threads, callback)
         })
     })
 }
 
-function _recursiveDownload(pathName, index, baseURL, threads) {
+function _recursiveDownload(pathName, index, baseURL, threads, callback) {
     let pending = []
     index.forEach((f) => {
         if (f.endsWith('/')) {
@@ -43,7 +43,21 @@ function _recursiveDownload(pathName, index, baseURL, threads) {
             }
         }
     })
-    pending.forEach((d) => recursiveDownload(pathName, parseURL(baseURL.href + d), threads))
+    if (pending.length == 0) {
+        callback()
+    } else {
+        downloadPending(pathName, baseURL, threads, pending, 0, callback)
+    }
+}
+
+function downloadPending(pathName, baseURL, threads, pending, i, callback) {
+    recursiveDownload(pathName, parseURL(baseURL.href + pending[i]), threads, () => {
+        if (i == pending.length - 1) {
+            callback()
+        } else {
+            setImmediate(() => downloadPending(pathName, baseURL, threads, pending, i + 1, callback))
+        }
+    })
 }
 
 function hrefWithoutAuth(url) {

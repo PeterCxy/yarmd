@@ -59,5 +59,7 @@ function main() {
         process.exit(1)
     }
 
-    recursiveDownload(argv.directory, url, argv.threads)
+    recursiveDownload(argv.directory, url, argv.threads, () => {
+        logger.info('Download complete.')
+    })
 }
