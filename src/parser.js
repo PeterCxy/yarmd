@@ -5,14 +5,16 @@ import * as jsdom from "jsdom"
 // AUTOINDEX parser
 export function parseIndex(url, callback) {
     request.get(url, (err, response, body) => {
-        if (err != null) {
-            callback(err, null)
-        }
-        jsdom.env(body, (err, window) => {
+        process.nextTick(() => {
             if (err != null) {
                 callback(err, null)
             }
-            _parseIndex(window.document, callback)
+            jsdom.env(body, (err, window) => {
+                if (err != null) {
+                    callback(err, null)
+                }
+                _parseIndex(window.document, callback)
+            })
         })
     })
 }
