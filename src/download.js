@@ -37,7 +37,8 @@ function _recursiveDownload(pathName, index, baseURL, threads, callback) {
             // Download this file
             let fileURL = baseURL.href + f
             logger.info(`Downloading ${hrefWithoutAuth(baseURL)}${f}`)
-            let fileName = path.join(pathName, '/' + f)
+            let fileName = path.join(pathName, '/' + decodeURIComponent(f))
+            logger.info(`File name: ${fileName}`)
             let aria2File = fileName + '.aria2'
             if (!fs.existsSync(fileName) || (fs.existsSync(fileName) && fs.existsSync(aria2File))) {
                 execSync(escape(['aria2c', '-s', threads, '-d', pathName, fileURL]), {stdio:[0,1,2]})
